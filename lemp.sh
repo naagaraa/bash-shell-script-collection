@@ -3,7 +3,7 @@
 ##################################################################
 # Author : miyuki nagara
 # Date: 2021-12-05
-# LAMP STACK LINUX APACHE MYSQL PHP installer
+# LEMP STACK LINUX nginx MYSQL PHP installer
 ##################################################################
 
 ##################################################################
@@ -14,25 +14,25 @@ usage() {
     cat <<EOF
 Name: 
 =====
-LAMP STACK INSTALLER
+LEMP STACK INSTALLER
 
 
 Description: 
 ============
-This script install all Backpack for LAMP STACK.
+This script install all Backpack for LEMP STACK.
 
 
-LAMP STACK modules:
+LEMP STACK modules:
 ===================================================================
-PHP, APACHE, GIT, COMPOSER, MYSQL, PHPMYADMIN, and  LARAVEL GLOBAL.
+PHP, GIT, NGINX, COMPOSER, MYSQL, PHPMYADMIN, and  LARAVEL GLOBAL.
 
 Usage:
 ===================================================================
 welcome to my tools automation install backpack :
 
-1. install LAMP                 | install LAMP STACK
-2. uninstall LAMP               | uninstall all LAMP STACK php, git, composer, apache, mysql, laravel
-3. uninstall Apache2            | uninstall apache2 only
+1. install LEMP                 | install LEMP STACK
+2. uninstall LEMP               | uninstall all LEMP STACK php, git, composer, nginx, mysql, laravel
+3. uninstall NGINX              | uninstall NGINX only
 4. uninstall git                | uninstall git only
 5. uninstall composer           | uninstall composer only
 6. uninstall php                | uninstall php only
@@ -49,28 +49,28 @@ EOF
         echo ""
         echo "+------------------------------------------+"
         echo "|                                          |"
-        echo "| INSTALL LAMP STACK                       |"
+        echo "| INSTALL LEMP STACK                       |"
         echo "|                                          |"
         echo "+------------------------------------------+"
-        install_lamp
+        install_lemp
     elif [[ $menu == "2" ]]
     then
         echo ""
         echo "+------------------------------------------+"
         echo "|                                          |"
-        echo "| UNINSTALL LAMP STACK                     |"
+        echo "| UNINSTALL LEMP STACK                     |"
         echo "|                                          |"
         echo "+------------------------------------------+"
-        uninstall_lamp
+        uninstall_lemp
     elif [[ $menu == "3" ]]
     then
         echo ""
         echo "+------------------------------------------+"
         echo "|                                          |"
-        echo "| UNINSTALL APACHE2                        |"
+        echo "| UNINSTALL NGINX                          |"
         echo "|                                          |"
         echo "+------------------------------------------+"
-        uninstall_apache2
+        uninstall_nginx
     elif [[ $menu == "4" ]]
     then
         echo ""
@@ -138,7 +138,7 @@ install_lsb(){
         echo "clear install lsb_release"
     elif [ $answer == "n" ]
     then
-        echo "sorry I don't wanna install laravel lsb_release"
+        echo "sorry I don't wanna install lsb_release"
     else
         echo "sorry your worng input"
     fi
@@ -186,27 +186,27 @@ install_composer(){
 
 
 ##################################################################
-# function install_apache
-# description for install apache2
+# function install_nginx
+# description for install nginx
 ##################################################################
-install_apache(){
-    echo -n "you wanna install apache2 ? y(yes)/n(no) : "
+install_nginx(){
+    echo -n "you wanna install ngnix ? y(yes)/n(no) : "
     read answer
     if [ $answer == "y" ]
     then
-        echo "sudo apt install apache2"
-        sudo apt install apache2 
-        echo "Done install apache2"
-        echo "sudo systemctl status apache2"
-        sudo systemctl status apache2
-        echo "sudo systemctl restart apache2"
-        sudo systemctl start apache2
-        echo "sudo ufw allow in 'Apache'"
-        sudo ufw allow in "Apache"
+        echo "sudo apt install nginx"
+        sudo apt install nginx 
+        echo "Done install nginx"
+        echo "sudo systemctl status nginx"
+        sudo systemctl status nginx
+        echo "sudo systemctl restart nginx"
+        sudo systemctl start nginx
+        echo "sudo ufw allow 'Nginx HTTP'"
+        sudo ufw allow 'Nginx HTTP'
         sudo ufw status
     elif [ $answer == "n" ]
     then
-       echo "sorry I don't wanna install apache2"
+       echo "sorry I don't wanna install nginx"
     else
         echo "sorry your worng input"
     fi
@@ -252,14 +252,14 @@ install_php(){
         #install php
         echo "sudo apt install -y php$versionphp"
         sudo apt install -y php$versionphp
-        echo "sudo service apache2 restart"
-        sudo service apache2 restart
+        echo "sudo service nginx restart"
+        sudo service nginx restart
 
         # install php modules
         echo "sudo apt-cache search php7*"
         sudo apt-cache search php$versionphp*
         echo "sudo apt install php7.4-mysql php7.4-curl php7.4-json php7.4-cgi php7.4-xsl"
-        sudo apt install php$versionphp libapache2-mod-php$versionphp php$versionphp-curl php-pear php$versionphp-gd php$versionphp-dev php$versionphp-zip php$versionphp-mbstring php$versionphp-mysql php$versionphp-xml curl -y
+        sudo apt install php$versionphp php-fpm php$versionphp-curl php-pear php$versionphp-gd php$versionphp-dev php$versionphp-zip php$versionphp-mbstring php$versionphp-mysql php$versionphp-xml curl -y
         echo "sudo update-alternatives --config php"
         sudo update-alternatives --config php
     elif [[ $answer == "n" ]]
@@ -357,33 +357,33 @@ install_laravel_g(){
 }
 
 ##################################################################
-# function unistall lamp stack
-# description for run unistall all modules lamp stack
+# function unistalL LEMP stack
+# description for run unistall all modules LEMP stack
 ##################################################################
-uninstall_lamp(){
+uninstall_lemp(){
     echo ""
     echo "+------------------------------------------+"
     echo "|                                          |"
     echo "|                                          |"
     echo "| it will unistall all                     |" 
-    echo "| Unistall apache2                         |"
+    echo "| Unistall nginx                           |"
     echo "| Unistall php                             |"
     echo "| Unistall mysql-server                    |"
     echo "| Unistall phpmyadmin                      |"
     echo "|                                          |"
     echo "+------------------------------------------+"
     echo ""
-    echo -n "you wanna uninstall lamp? Y(yes)/N(no) : "
+    echo -n "you wanna uninstall lemp? Y(yes)/N(no) : "
     read answer
     if [ $answer == "y" ]
     then
-        sudo apt remove --purge apache2* 
+        sudo apt remove --purge nginx* 
         sudo apt remove --purge php*
         sudo apt remove --purge mysql-server*
         sudo apt remove --purge phpmyadmin
         sudo apt autoremove
         sudo apt autoclean
-        echo "Done uninstall lamp"
+        echo "Done uninstall lemp"
     elif [ $answer == "n" ]
     then
         echo "sorry I don't wanna uninstall all"
@@ -445,26 +445,26 @@ uninstall_composer()
 }
 
 ##################################################################
-# function uninstall apache2
-# description for run uninstall apache2
+# function uninstall nginx
+# description for run uninstall nginx
 ##################################################################
-uninstall_apache2()
+uninstall_nginx()
 {
     echo ""
     echo "+------------------------------------------+"
     echo "|                                          |"
-    echo "| UNINSTALL Apache2                        |"
+    echo "| UNINSTALL NGINX                          |"
     echo "|                                          |"
     echo "+------------------------------------------+"
     echo ""
-    echo -n "you wanna uninstall apache2? Y(yes)/N(no) : "
+    echo -n "you wanna uninstall NGINX? Y(yes)/N(no) : "
     read answer
     if [ $answer == "y" ]
     then
-        sudo apt remove --purge apache2* 
+        sudo apt remove --purge nginx* 
     elif [ $answer == "n" ]
     then
-         echo "sorry I don't wanna uninstall apache2"
+         echo "sorry I don't wanna uninstall nginx"
     else
         echo "sorry your worng input"
     fi
@@ -509,7 +509,7 @@ uninstall_php()
     echo "|                                          |"
     echo "+------------------------------------------+"
     echo ""
-    echo -n "you wanna uninstall laravel? Y(yes)/N(no) : "
+    echo -n "you wanna uninstall PHP? Y(yes)/N(no) : "
     read answer
     if [ $answer == "y" ]
     then
@@ -549,10 +549,10 @@ uninstall_phpmyadmin()
 }
 
 ##################################################################
-# function install lamp
-# description for run install all modules lamp
+# function install lemp
+# description for run install all modules lemp
 ##################################################################
-install_lamp(){
+install_lemp(){
     # check lsb installation
     if ! command -v lsb_release > /dev/null
     then
@@ -604,10 +604,10 @@ install_lamp(){
         install_composer
     fi
 
-    # check apache installation
-    if ! command -v apache2 > /dev/null
+    # check nginx installation
+    if ! command -v nginx > /dev/null
     then
-        echo "<apache2> could not be found"
+        echo "<nginx> could not be found"
         echo ""
         echo "+------------------------------------------+"
         echo "|                                          |"
@@ -615,10 +615,10 @@ install_lamp(){
         echo "|                                          |"
         printf "|`tput bold` %-40s `tput sgr0`|\n" "$@"
         echo "|                                          |"
-        echo "| install apache2                          |"
+        echo "| install NGINX                            |"
         echo "|                                          |"
         echo "+------------------------------------------+"
-        install_apache
+        install_nginx
     fi
 
     # check php installation 
@@ -690,7 +690,7 @@ install_lamp(){
     echo "|                                          |"
     printf "|`tput bold` %-40s `tput sgr0`|\n" "$@"
     echo "|                                          |"
-    echo "| DONE INSTALL LAMP STACK                  |"
+    echo "| DONE INSTALL LEMP STACK                  |"
     echo "|                                          |"
     echo "+------------------------------------------+"
 }
