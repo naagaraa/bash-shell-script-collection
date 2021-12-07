@@ -174,7 +174,9 @@ install_composer(){
     if [ $answer == "y" ]
     then
         echo "sudo apt install composer"
-        sudo apt install composer 
+        curl -sS https://getcomposer.org/installer -o composer-setup.php 
+        sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+        composer --version
         echo "Done install composer"
     elif [ $answer == "n" ]
     then
@@ -346,7 +348,7 @@ install_laravel_g(){
     fi
 
     #runs script install laravel global
-    composer global require "laravel/installer"
+    sudo composer global require "laravel/installer"
     export PATH="~/.config/composer/vendor/bin:$PATH"
     elif [[ $answer == "n" ]]
     then
@@ -693,6 +695,12 @@ install_lemp(){
     echo "| DONE INSTALL LEMP STACK                  |"
     echo "|                                          |"
     echo "+------------------------------------------+"
+    php --version
+    mysql --version
+    composer --version
+    laravel --version
+    sudo ufw status
+    sudo systemctl status nginx
 }
 
 # run script
