@@ -202,6 +202,9 @@ install_apache(){
         sudo systemctl status apache2
         echo "sudo systemctl restart apache2"
         sudo systemctl start apache2
+        echo "sudo ufw allow in 'Apache'"
+        sudo ufw allow in "Apache"
+        sudo ufw status
     elif [ $answer == "n" ]
     then
        echo "sorry I don't wanna install apache2"
