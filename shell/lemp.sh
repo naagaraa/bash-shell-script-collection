@@ -683,6 +683,18 @@ install_lemp(){
         echo "|                                          |"
         echo "+------------------------------------------+"
         install_mysql
+        echo "<mysql> could not be found"
+        echo ""
+        echo "+------------------------------------------+"
+        echo "|                                          |"
+        printf "| %-40s |\n" "`date`"
+        echo "|                                          |"
+        printf "|`tput bold` %-40s `tput sgr0`|\n" "$@"
+        echo "|                                          |"
+        echo "| install phpmyadmin                       |"
+        echo "|                                          |"
+        echo "+------------------------------------------+"
+        install_phpmyadmin
     fi
 
     echo ""

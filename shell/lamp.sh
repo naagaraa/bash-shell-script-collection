@@ -308,13 +308,13 @@ install_mysql(){
 # description for run installphpmyadmin
 ##################################################################
 install_phpmyadmin(){
-    echo -n "you wanna install mysql? Y(yes)/N(No) : "
+    echo -n "you wanna install phpmyadmin? Y(yes)/N(No) : "
     read answer
 
     if [[ $answer == "y" ]]
     then
     echo "sudo apt -y install phpmyadmin"
-        sudo apt -y install phpmyadmin
+        sudo apt -y install phpmyadmin php-mbstring php-gettext
     elif [[ $answer == "n" ]]
     then
         echo "sorry I don't wanna install phpmyadmin"
@@ -357,6 +357,7 @@ install_laravel_g(){
         echo "you wrong input bro"
     fi
 }
+
 
 ##################################################################
 # function unistall lamp stack
@@ -683,6 +684,18 @@ install_lamp(){
         echo "|                                          |"
         echo "+------------------------------------------+"
         install_mysql
+        echo "<mysql> could not be found"
+        echo ""
+        echo "+------------------------------------------+"
+        echo "|                                          |"
+        printf "| %-40s |\n" "`date`"
+        echo "|                                          |"
+        printf "|`tput bold` %-40s `tput sgr0`|\n" "$@"
+        echo "|                                          |"
+        echo "| install phpmyadmin                       |"
+        echo "|                                          |"
+        echo "+------------------------------------------+"
+        install_phpmyadmin
     fi
 
     echo ""
